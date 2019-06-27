@@ -51,17 +51,22 @@ class MediaControls extends Component<Props, State> {
   };
 
   componentDidMount() {
-    this.fadeOutControls(5000);
+    // this.fadeOutControls(1000);
   }
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.playerState === PLAYER_STATES.ENDED) {
       this.fadeInControls(false);
     }
+    if (
+      nextProps.isLoading !== this.props.isLoading &&
+      nextProps.isLoading === false
+    )
+      this.fadeOutControls(false);
   }
 
   onReplay = () => {
-    this.fadeOutControls(5000);
+    this.fadeOutControls(1000);
     this.props.onReplay();
   };
 
@@ -71,10 +76,11 @@ class MediaControls extends Component<Props, State> {
     switch (playerState) {
       case PLAYING: {
         this.cancelAnimation();
+        // this.fadeOutControls(200);
         break;
       }
       case PAUSED: {
-        this.fadeOutControls(5000);
+        this.fadeOutControls(200);
         break;
       }
       default:
