@@ -1,13 +1,13 @@
 import { StyleSheet } from "react-native";
 
-const containerBackgroundColor = "rgba(45, 59, 62, 0.4)";
+// const containerBackgroundColor = "rgba(45, 59, 62, 0.4)";
 const playButtonBorderColor = "rgba(255,255,255,0.5)";
 const white = "#fff";
 
 export default StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: containerBackgroundColor,
+    backgroundColor: "transparent",
     bottom: 0,
     flex: 1,
     flexDirection: "column",
@@ -39,6 +39,7 @@ export default StyleSheet.create({
     height: 50,
     justifyContent: "center",
     width: 50,
+    marginBottom: 25,
   },
   playIcon: {
     height: 22,

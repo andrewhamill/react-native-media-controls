@@ -25,6 +25,7 @@ export type Props = {
   onReplay: () => void;
   onSeek: (value: number) => void;
   onSeeking: (value: number) => void;
+  paused: boolean;
   playerState: PLAYER_STATES;
   progress: number;
   showOnStart?: boolean;
@@ -37,13 +38,14 @@ const MediaControls = (props: Props) => {
     children,
     containerStyle: customContainerStyle = {},
     duration,
-    fadeOutDelay = 5000,
+    fadeOutDelay = 1000,
     isLoading = false,
     mainColor = "rgba(12, 83, 175, 0.9)",
     onFullScreen,
     onReplay: onReplayCallback,
     onSeek,
     onSeeking,
+    paused, //used to keep the player visible on load if we aren't auto playing
     playerState,
     progress,
     showOnStart = true,
@@ -66,10 +68,15 @@ const MediaControls = (props: Props) => {
 
   const [opacity] = useState(new Animated.Value(initialOpacity));
   const [isVisible, setIsVisible] = useState(initialIsVisible);
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
   useEffect(() => {
-    fadeOutControls(fadeOutDelay);
+    !paused && fadeOutControls(fadeOutDelay);
   }, []);
+
+  useEffect(() => {
+    if (playerState === PLAYER_STATES.ENDED) fadeInControls(false);
+  }, [playerState]);
 
   const fadeOutControls = (delay = 0) => {
     Animated.timing(opacity, {
@@ -112,6 +119,7 @@ const MediaControls = (props: Props) => {
     const { PLAYING, PAUSED, ENDED } = PLAYER_STATES;
     switch (playerState) {
       case PLAYING: {
+        setIsFirstLoad(false);
         cancelAnimation();
         break;
       }
@@ -120,6 +128,7 @@ const MediaControls = (props: Props) => {
         break;
       }
       case ENDED:
+        fadeInControls();
         break;
     }
 
@@ -157,17 +166,21 @@ const MediaControls = (props: Props) => {
               mainColor={mainColor}
               playerState={playerState}
             />
-            <Slider
-              progress={progress}
-              duration={duration}
-              mainColor={mainColor}
-              onFullScreen={onFullScreen}
-              playerState={playerState}
-              onSeek={onSeek}
-              onSeeking={onSeeking}
-              onPause={onPause}
-              customSliderStyle={sliderStyle}
-            />
+            {!isFirstLoad || progress !== 0 ? (
+              <Slider
+                progress={progress}
+                duration={duration}
+                mainColor={mainColor}
+                onFullScreen={onFullScreen}
+                playerState={playerState}
+                onSeek={onSeek}
+                onSeeking={onSeeking}
+                onPause={onPause}
+                customSliderStyle={sliderStyle}
+              />
+            ) : (
+              <View style={{ flex: 1, marginBottom: -25 }} />
+            )}
           </View>
         )}
       </Animated.View>
