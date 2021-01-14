@@ -46,6 +46,5 @@ buck-out/
 example/android/app/libs
 example/android/keystores/debug.keystore
 
-lib/
 
 yarn-error.log
