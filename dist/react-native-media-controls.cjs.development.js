@@ -171,7 +171,8 @@ var Slider = function Slider(props) {
       mainColor = props.mainColor,
       onFullScreen = props.onFullScreen,
       onPause = props.onPause,
-      progress = props.progress;
+      progress = props.progress,
+      vertical = props.vertical;
   var containerStyle = (customSliderStyle === null || customSliderStyle === void 0 ? void 0 : customSliderStyle.containerStyle) || {};
   var customTrackStyle = (customSliderStyle === null || customSliderStyle === void 0 ? void 0 : customSliderStyle.trackStyle) || {};
   var customThumbStyle = (customSliderStyle === null || customSliderStyle === void 0 ? void 0 : customSliderStyle.thumbStyle) || {};
@@ -213,7 +214,8 @@ var Slider = function Slider(props) {
     thumbStyle: [styles.thumb, customThumbStyle, {
       borderColor: mainColor
     }],
-    minimumTrackTintColor: mainColor
+    minimumTrackTintColor: mainColor,
+    vertical: vertical
   })), Boolean(onFullScreen) && React__default.createElement(reactNative.TouchableOpacity, {
     style: styles.fullScreenContainer,
     onPress: onFullScreen
@@ -249,7 +251,9 @@ var MediaControls = function MediaControls(props) {
       showOnStart = _props$showOnStart === void 0 ? true : _props$showOnStart,
       sliderStyle = props.sliderStyle,
       _props$toolbarStyle = props.toolbarStyle,
-      customToolbarStyle = _props$toolbarStyle === void 0 ? {} : _props$toolbarStyle;
+      customToolbarStyle = _props$toolbarStyle === void 0 ? {} : _props$toolbarStyle,
+      _props$vertical = props.vertical,
+      vertical = _props$vertical === void 0 ? false : _props$vertical;
 
   var _ref = function () {
     if (showOnStart) {
@@ -398,7 +402,8 @@ var MediaControls = function MediaControls(props) {
     onSeek: onSeek,
     onSeeking: onSeeking,
     onPause: onPause,
-    customSliderStyle: sliderStyle
+    customSliderStyle: sliderStyle,
+    vertical: vertical
   }) : React__default.createElement(reactNative.View, {
     style: {
       flex: 1,

@@ -21,6 +21,7 @@ export declare type Props = {
     showOnStart?: boolean;
     sliderStyle: CustomSliderStyle;
     toolbarStyle: ViewStyle;
+    vertical?: boolean;
 };
 declare const MediaControls: {
     (props: Props): JSX.Element;

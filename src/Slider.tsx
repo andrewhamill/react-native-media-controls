@@ -24,6 +24,7 @@ type Props = Pick<
 > & {
   onPause: () => void;
   customSliderStyle?: CustomSliderStyle;
+  vertical?: boolean;
 };
 
 const fullScreenImage = require("./assets/ic_fullscreen.png");
@@ -36,6 +37,7 @@ const Slider = (props: Props) => {
     onFullScreen,
     onPause,
     progress,
+    vertical,
   } = props;
 
   const containerStyle = customSliderStyle?.containerStyle || {};
@@ -84,6 +86,7 @@ const Slider = (props: Props) => {
             { borderColor: mainColor },
           ]}
           minimumTrackTintColor={mainColor}
+          vertical={vertical}
         />
       </View>
       {Boolean(onFullScreen) && (
